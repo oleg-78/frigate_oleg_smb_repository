@@ -1,0 +1,18 @@
+name: Frigate Oleg SMB Edition
+version: "1.0.0"
+slug: frigate_oleg_smb
+description: "Custom Frigate with SMB write support"
+arch:
+  - amd64
+
+startup: services
+boot: auto
+host_network: true
+
+map:
+  - media:rw
+  - share:rw
+  - config:rw
+
+options: {}
+schema: {}
