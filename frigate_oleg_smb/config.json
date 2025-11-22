@@ -7,6 +7,10 @@
   "startup": "services",
   "boot": "auto",
   "host_network": true,
+  "ingress": true,
+  "ingress_port": 5000,
+  "panel_icon": "mdi:cctv",
+  "panel_title": "Frigate SMB",
   "map": ["media:rw", "share:rw", "config:rw"],
   "options": {},
   "schema": {}
