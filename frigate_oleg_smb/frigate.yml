@@ -1,0 +1,64 @@
+mqtt:
+  enabled: true
+  host: core-mosquitto
+  port: 1883
+  user: oleg
+  password: sucov6dubos
+  topic_prefix: frigate
+
+ffmpeg:
+  hwaccel_args:
+    - -hwaccel
+    - vaapi
+    - -hwaccel_device
+    - /dev/dri/renderD128
+    - -hwaccel_output_format
+    - yuv420p
+  input_args:
+    - -an
+
+cameras:
+  h9c:
+    enabled: true
+    ffmpeg:
+      hwaccel_args: []
+      inputs:
+        - path: rtsp://admin:ACTBMJ@192.168.1.138:554/Streaming/Channels/102
+          roles: [detect]
+        - path: rtsp://admin:ACTBMJ@192.168.1.138:554/Streaming/Channels/101
+          roles: [record]
+    detect:
+      width: 704
+      height: 576
+      fps: 7
+    motion:
+      contour_area: 80
+      frame_height: 160
+      threshold: 40
+      delta_alpha: 0.3
+      improve_contrast: false
+      lightning_threshold: 0.31
+      mask:
+        - 0,0,0.369,0,0.369,0.243,0,0.243
+        - 0.923,0,0.923,0.75
+        - 0.369,0.081,0.45,0.129,0.566,0.235,0.562,0.412,0.434,0.447,0.348,0.498,0.153,0.561,0.025,0.617,0.008,0.567,0.008,0.37,0.025,0.243
+    zones:
+      yard:
+        coordinates: [0.603,0.715,0.958,0.849,1,0.653,0.845,0.576,0.721,0.618,0.635,0.66]
+        inertia: 3
+      door:
+        coordinates: [0.857,0.582,0.989,0.647,0.991,0.418,0.95,0.406,0.91,0.493]
+        inertia: 3
+      gate:
+        coordinates: [0.052,0.999,0.911,1,0.958,0.849,0.598,0.715,0.123,0.909,0.052,0.943]
+        inertia: 3
+
+record:
+  enabled: true
+  retain:
+    days: 7
+
+detect:
+  enabled: true
+
+version: 0.16-0
